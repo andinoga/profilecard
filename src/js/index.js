@@ -4,7 +4,6 @@ import "../style/index.scss";
  *  1) Here are all the variables to be used in the conditions
  */
 function render(variables = {}) {
-  
   /**
    *  2) The conditional rendering logic starts here
    */
@@ -13,18 +12,49 @@ function render(variables = {}) {
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
 
+  let pepe = "Name";
+  if (variables.name !== null) {
+    pepe = variables.name;
+  }
+  // console.log(pepe);
+
+  let nina = "Lastname";
+  if (variables.lastname !== null) {
+    nina = variables.lastname;
+  }
+  // console.log(nina);
+  let twist = "twitter";
+  if (variables.twitter !== null) {
+    twist = variables.twitter;
+  }
+  //console.log(twist);
+  let mata = "github";
+  if (variables.github !== null) {
+    mata = variables.github;
+  }
+  //console.log(git);
+  let link = "linkedin";
+  if (variables.linkedin !== null) {
+    link = variables.linkedin;
+  }
+  let gram = "instagram";
+  if (variables.instagram !== null) {
+    gram = variables.instagram;
+  }
+
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/alesanchezr"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="https://github.com/alesanchezr"><i class="fa fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/alesanchezr"><i class="fa fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/alesanchezr"><i class="fa fa-instagram"></i></a></li>
+          <h1>${pepe} ${nina}</h1>
+          <h2>${variables.role}</h2>
+          <h3>${variables.city} ${variables.country}</h3>
+          
+          <ul class=${variables.socialMediaPosition}>
+            <li><a href="https://twitter.com/${twist}"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="https://github.com/${mata}"><i class="fa fa-github"></i></a></li>
+            <li><a href="https://linkedin.com/${link}"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="https://instagram.com/${gram}"><i class="fa fa-instagram"></i></a></li>
           </ul>
         </div>
     `;

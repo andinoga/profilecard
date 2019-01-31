@@ -696,11 +696,68 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_index_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_index_scss__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function render(values = {}) {
+/**
+ *  1) Here are all the variables to be used in the conditions
+ */
+function render(variables = {}) {
   /**
-   *  1) Here are all the variables to be used in the conditions
+   *  2) The conditional rendering logic starts here
    */
-  const variables = Object.assign({
+  // here we ask the logical questions to make decitions on how to build the heml
+  // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
+  let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
+  if (variables.includeCover == false) cover = "<div class='cover'></div>";
+
+  let pepe = "Name";
+  if (variables.name !== null) {
+    pepe = variables.name;
+  }
+  // console.log(pepe);
+
+  let nina = "Lastname";
+  if (variables.lastname !== null) {
+    nina = variables.lastname;
+  }
+  // console.log(nina);
+  let twist = "twitter";
+  if (variables.twitter !== null) {
+    twist = variables.twitter;
+  }
+  //console.log(twist);
+  let mata = "github";
+  if (variables.github !== null) {
+    mata = variables.github;
+  }
+  //console.log(git);
+  let link = "linkedin";
+  if (variables.linkedin !== null) {
+    link = variables.linkedin;
+  }
+  let gram = "instagram";
+  if (variables.instagram !== null) {
+    gram = variables.instagram;
+  }
+
+  // reset the website body with the new html output
+  document.querySelector("#widget_content").innerHTML = `<div class="widget">
+            ${cover}
+          <img src="${variables.avatarURL}" class="photo" />
+          <h1>${pepe} ${nina}</h1>
+          <h2>${variables.role}</h2>
+          <h3>${variables.city} ${variables.country}</h3>
+          
+          <ul class=${variables.socialMediaPosition}>
+            <li><a href="https://twitter.com/${twist}"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="https://github.com/${mata}"><i class="fa fa-github"></i></a></li>
+            <li><a href="https://linkedin.com/${link}"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="https://instagram.com/${gram}"><i class="fa fa-instagram"></i></a></li>
+          </ul>
+        </div>
+    `;
+}
+//ignore this lines, here is where we do the logic for the dropdowns
+window.onload = function () {
+  window.variables = {
     // if includeCover is true the algorithm should
     includeCover: true,
     // this is the url of the image that will used as background for the profile cover
@@ -714,50 +771,19 @@ function render(values = {}) {
     github: "alesanchezr",
     linkedin: null,
     instagram: null,
-
     name: null,
     lastname: null,
     role: null,
-
     country: null,
     city: null
-  }, values);
-
-  /**
-   *  2) The conditional rendering logic starts here
-   */
-
-  // here we ask the logical questions to make decitions on how to build the heml
-  // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
-  let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
-  if (variables.includeCover == false) cover = "<div class='cover'></div>";
-
-  // reset the website body with the new html output
-  document.querySelector("#widget_content").innerHTML = `<div class="widget">
-            ${cover}
-          <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boylett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/alesanchezr"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="https://github.com/alesanchezr"><i class="fa fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/alesanchezr"><i class="fa fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/alesanchezr"><i class="fa fa-instagram"></i></a></li>
-          </ul>
-        </div>
-    `;
-}
-
-//ignore this lines, here is where we do the logic for the dropdowns
-window.onload = function () {
-  render();
+  };
+  render(window.variables);
   document.querySelectorAll(".picker").forEach(function (elm) {
     elm.addEventListener("change", function (e) {
       const attribute = e.target.getAttribute("for");
       let values = {};
       values[attribute] = this.value == "" ? null : this.value == "true" ? true : this.value == "false" ? false : this.value;
-      render(values);
+      render(Object.assign(window.variables, values));
     });
   });
 };
